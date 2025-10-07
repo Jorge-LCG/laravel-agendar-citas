@@ -1,3 +1,8 @@
+@props([
+    'title' => config('app.name', 'Laravel'),
+    'breadcrumbs' => []
+])
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -5,15 +10,21 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{ $title }}</title>
 
         {{-- Google Fonts --}}
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
+        {{-- FontAwesome --}}
+        <script src="https://kit.fontawesome.com/f20898c6a0.js" crossorigin="anonymous"></script>
+        
+        {{-- Wireui --}}
+        <wireui:scripts />
+        
         {{-- Styles / Scripts --}}
         @vite(['resources/css/app.css', 'resources/js/app.js'])
-
+        
         {{-- Livewire / Styles --}}
         @livewireStyles
     </head>
@@ -24,9 +35,16 @@
         @include('layouts.includes.admin.sidebar')
 
         <div class="p-4 sm:ml-64">
-            <div class="mt-14">
-                {{ $slot }}
+            <div class="mt-14 flex items-center">
+                @include('layouts.includes.admin.breadcrumb')
+                @isset($action)
+                    <div class="ml-auto">
+                        {{ $action }}
+                    </div>
+                @endisset
             </div>
+
+            {{ $slot }}
         </div>
 
         @stack('modals')
