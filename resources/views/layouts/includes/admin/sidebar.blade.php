@@ -7,7 +7,13 @@
          'active' => request()->routeIs('admin.dashboard')
       ],
       [
-         'header' => 'Administrar página'
+         'header' => 'Gestión'
+      ],
+      [
+         'name' => 'Roles y Permisos',
+         'icon' => 'fa-solid fa-shield-halved',
+         'href' => route('admin.roles.index'),
+         'active' => request()->routeIs('admin.roles.*')
       ]
    ];
 @endphp
