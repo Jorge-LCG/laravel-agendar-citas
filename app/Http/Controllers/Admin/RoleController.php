@@ -38,8 +38,8 @@ class RoleController extends Controller
         if ($role->id <= 4) {
             return redirect()->route('admin.roles.index')->with('swal', [
                 'icon' => 'error',
-                'title' => 'Error..',
-                'text' => 'No puedes editar este rol'
+                'title' => 'Rol Protegido',
+                'text' => 'Este rol es necesario para el funcionamiento básico de la aplicación.'
             ]);
         }
 
@@ -64,8 +64,8 @@ class RoleController extends Controller
         if ($role->id <= 4) {
             return redirect()->route('admin.roles.index')->with('swal', [
                 'icon' => 'error',
-                'title' => 'Error..',
-                'text' => 'No puedes editar este rol'
+                'title' => 'Rol Protegido',
+                'text' => 'Este rol es necesario para el funcionamiento básico de la aplicación.'
             ]);
         }
 

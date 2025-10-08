@@ -14,11 +14,12 @@
         ]
     ]
 ">
-    <x-wire-card>
+    <x-wire-card class="border">
         <form action="{{ route('admin.roles.store') }}" method="POST">
             @csrf
 
             <x-wire-input 
+                icon="user"
                 label="Nombre"    
                 name="name"
                 placeholder="Nombre del rol"

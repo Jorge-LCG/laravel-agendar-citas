@@ -31,23 +31,25 @@
         {{-- Livewire / Styles --}}
         @livewireStyles
     </head>
-    <body class="font-sans antialiased bg-gray-50">
+    <body class="font-sans antialiased bg-[#F1F5FF]">
 
         @include('layouts.includes.admin.navigation')
 
         @include('layouts.includes.admin.sidebar')
 
         <div class="p-4 sm:ml-64">
-            <div class="mt-14 flex items-center">
-                @include('layouts.includes.admin.breadcrumb')
-                @isset($action)
-                    <div class="ml-auto">
-                        {{ $action }}
-                    </div>
-                @endisset
+            <div class="bg-white rounded-lg p-6 mt-14">
+                <div class="flex items-center">
+                    @include('layouts.includes.admin.breadcrumb')
+                    @isset($action)
+                        <div class="ml-auto">
+                            {{ $action }}
+                        </div>
+                    @endisset
+                </div>
+    
+                {{ $slot }}
             </div>
-
-            {{ $slot }}
         </div>
 
         @stack('modals')

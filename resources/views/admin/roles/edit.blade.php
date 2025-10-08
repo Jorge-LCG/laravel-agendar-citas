@@ -14,7 +14,7 @@
         ]
     ]
 ">
-    <x-wire-card>
+    <x-wire-card class="border">
         <form action="{{ route('admin.roles.update', $role) }}" method="POST">
             @csrf
             @method('PUT')
