@@ -37,20 +37,23 @@ class UserController extends Controller
         $role = Role::findOrFail($roleId);
         $user->assignRole($role);
 
-        if ($user->hasRole('Paciente')) {
-            $patient = $user->patient()->create([]);
-            return redirect()->route('admin.patients.edit', $patient)->with('swal', [
-                'icon' => 'success',
-                'title' => 'Usuario creado correctamente',
-                'text' => 'El usuario ha sido creado exitosamente'
-            ]);
-        }
-
-        return redirect()->route('admin.users.index')->with('swal', [
+        session()->flash('swal', [
             'icon' => 'success',
             'title' => 'Usuario creado correctamente',
             'text' => 'El usuario ha sido creado exitosamente'
         ]);
+
+        if ($user->hasRole('Paciente')) {
+            $patient = $user->patient()->create([]);
+            return redirect()->route('admin.patients.edit', $patient);
+        }
+
+        if ($user->hasRole('Doctor')) {
+            $doctor = $user->doctor()->create([]);
+            return redirect()->route('admin.doctors.edit', $doctor);
+        }
+
+        return redirect()->route('admin.users.index');
     }
 
     public function edit(User $user): View
