@@ -1,16 +1,12 @@
 <x-admin-layout 
-    title="Dentify | Pacientes"
+    title="Dentify | Doctores"
     :breadcrumbs="[
         [
             'name' => 'Dashboard',
             'href' => route('admin.dashboard')
         ],
         [
-            'name' => 'Pacientes',
-            'href' => route('admin.patients.index')
-        ],
-        [
-            'name' => 'Nuevo'
+            'name' => 'Doctores'
         ]
     ]
 ">

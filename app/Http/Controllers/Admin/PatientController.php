@@ -16,11 +16,6 @@ class PatientController extends Controller
         return view('admin.patients.index');
     }
 
-    public function create(): View
-    {
-        return view('admin.patients.create');
-    }
-
     public function edit(Patient $patient): View
     {
         $bloodTypes = BloodType::all();

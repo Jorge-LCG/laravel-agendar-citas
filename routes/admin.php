@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\DoctorController;
 use App\Http\Controllers\Admin\PatientController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
@@ -16,4 +17,7 @@ Route::resource('roles', RoleController::class)->except('show');
 Route::resource('users', UserController::class)->except('show');
 
 // Gestión Pacientes
-Route::resource('patients', PatientController::class)->except('show','store','destroy');
+Route::resource('patients', PatientController::class)->except(['create','store','show','destroy']);
+
+// Gestión Doctores
+Route::resource('doctors', DoctorController::class)->except(['create','store', 'show']);
