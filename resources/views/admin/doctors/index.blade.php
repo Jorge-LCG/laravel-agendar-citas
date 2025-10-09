@@ -10,4 +10,5 @@
         ]
     ]
 ">
+    @livewire('admin.datatables.doctor-table')
 </x-admin-layout>

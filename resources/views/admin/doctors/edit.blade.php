@@ -14,4 +14,68 @@
         ]
     ]
 ">
+    <form action="{{ route('admin.doctors.update', $doctor) }}" method="POST">
+        @csrf
+        @method('PUT')
+
+        <x-wire-card class="border mb-8">
+            <div class="lg:flex lg:justify-between lg:items-center">
+                <div class="flex items-center space-x-5">
+                    <img 
+                        src="{{ $doctor->user->profile_photo_url }}" 
+                        alt="{{ $doctor->user->name }}"
+                        class="h-20 w-20 rounded-full object-cover object-center"    
+                    />
+    
+                    <div>
+                        <p class="text-2xl font-bold text-gray-900 mb-1">
+                            {{ $doctor->user->name }}
+                        </p>
+
+                        <p class="text-sm font-semibold text-gray-500">
+                            Licencia: {{ $doctor->medical_license_number ?? 'N/A' }}
+                        </p>
+                    </div>
+                </div>
+    
+                <div class="flex space-x-3 mt-5">
+                    <x-wire-button outline black href="{{ route('admin.doctors.index') }}">
+                        Voler
+                    </x-wire-button>
+    
+                    <x-wire-button blue type="submit">
+                        <i class="fa-solid fa-check"></i>
+                        Guardar cambios
+                    </x-wire-button>
+                </div>
+            </div>
+        </x-wire-card>
+
+        <x-wire-card class="border">
+            <div class="space-y-4">
+                <x-wire-native-select label="Especialidad" name="speciality_id">
+                    <option value="">Seleccionar especialidad</option>
+                    @foreach ($specialities as $speciality)
+                        <option
+                            value="{{ $speciality->id }}" 
+                            @selected($speciality->id == old('speciality_id', $doctor->speciality_id))
+                        >
+                            {{ $speciality->name }}
+                        </option>
+                    @endforeach
+                </x-wire-native-select>
+
+                <x-wire-input 
+                    label="Número de licencia médica"
+                    name="medical_license_number"
+                    :value="old('medical_license_number', $doctor->medical_license_number)"
+                    placeholder="Número de licencia médica"
+                />
+
+                <x-wire-textarea label="Bibliografía" name="biography" placeholder="Escribe una breve bibliografía doctor">
+                    {{ old('biography', $doctor->biography) }}
+                </x-wire-textarea>
+            </div>
+        </x-wire-card>
+    </form>
 </x-admin-layout>

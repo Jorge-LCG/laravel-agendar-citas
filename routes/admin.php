@@ -17,7 +17,7 @@ Route::resource('roles', RoleController::class)->except('show');
 Route::resource('users', UserController::class)->except('show');
 
 // Gestión Pacientes
-Route::resource('patients', PatientController::class)->except(['create','store','show','destroy']);
+Route::resource('patients', PatientController::class)->only(['index','edit', 'update']);
 
 // Gestión Doctores
-Route::resource('doctors', DoctorController::class)->except(['create','store', 'show']);
+Route::resource('doctors', DoctorController::class)->only(['index','edit', 'update']);

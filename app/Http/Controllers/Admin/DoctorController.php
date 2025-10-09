@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\DoctorRequest;
 use App\Models\Doctor;
-use Illuminate\Http\Request;
+use App\Models\Speciality;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 class DoctorController extends Controller
@@ -14,25 +16,23 @@ class DoctorController extends Controller
         return view('admin.doctors.index');
     }
 
-
     public function edit(Doctor $doctor): View
     {
-        return view('admin.doctors.edit', compact('doctor'));
+        $specialities = Speciality::all();
+
+        return view('admin.doctors.edit', compact('doctor', 'specialities'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Doctor $doctor)
+    public function update(DoctorRequest $request, Doctor $doctor): RedirectResponse
     {
-        //
-    }
+        $validated = $request->validated();
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Doctor $doctor)
-    {
-        //
+        $doctor->update($validated);
+
+        return redirect()->route('admin.doctors.edit', $doctor)->with('swal', [
+            'icon' => 'success',
+            'title' => 'Doctor actualizado',
+            'text' => 'El doctor ha sido actualizado exitosamente'
+        ]);
     }
 }

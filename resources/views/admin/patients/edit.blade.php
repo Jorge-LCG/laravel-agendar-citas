@@ -27,8 +27,12 @@
                     />
     
                     <div>
-                        <p class="text-2xl font-bold text-gray-900">
+                        <p class="text-2xl font-bold text-gray-900 mb-1">
                             {{ $patient->user->name }}
+                        </p>
+
+                        <p class="text-sm font-semibold text-gray-500">
+                            DNI: {{ $patient->user->dni ?? 'N/A' }}
                         </p>
                     </div>
                 </div>
