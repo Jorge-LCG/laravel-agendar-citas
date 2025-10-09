@@ -15,20 +15,19 @@ class SpecialitySeeder extends Seeder
     {
         $specialties = [
             'Odontología General',
-            'Ortodoncia y Ortopedia Dentofacial',
+            'Ortodoncia',
             'Endodoncia',
             'Periodoncia',
             'Odontopediatría',
             'Rehabilitación Oral',
-            'Cirugía Bucal y Maxilofacial',
+            'Cirugía Bucal',
             'Odontología Estética',
             'Implantología Oral',
             'Patología Bucal',
-            'Radiología Oral y Maxilofacial',
+            'Maxilofacial',
             'Medicina Oral',
             'Odontología Forense',
             'Gerodontología',
-            'Odontología Preventiva y Comunitaria'
         ];
 
         foreach($specialties as $speciality)
