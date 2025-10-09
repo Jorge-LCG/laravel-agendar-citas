@@ -15,14 +15,14 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('blood_type_id')->nullable()->constrained()->onDelete('set null');
-            $table->string('allergies')->nullable();
-            $table->string('chronic_conditions')->nullable();
-            $table->string('surgical_history')->nullable();
-            $table->string('family_history')->nullable();
-            $table->string('observations')->nullable();
-            $table->string('emergency_contact_name')->nullable();
-            $table->string('emergency_contact_phone')->nullable();
-            $table->string('emergency_contact_relationship')->nullable();
+            $table->text('allergies')->nullable();
+            $table->text('chronic_conditions')->nullable();
+            $table->text('surgical_history')->nullable();
+            $table->text('family_history')->nullable();
+            $table->text('observations')->nullable();
+            $table->string('emergency_contact_name', 60)->nullable();
+            $table->string('emergency_contact_phone', 9)->nullable();
+            $table->string('emergency_contact_relationship', 60)->nullable();
             $table->timestamps();
         });
     }

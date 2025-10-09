@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\PatientRequest;
+use App\Models\BloodType;
 use App\Models\Patient;
-use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 class PatientController extends Controller
@@ -19,32 +21,22 @@ class PatientController extends Controller
         return view('admin.patients.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
     public function edit(Patient $patient): View
     {
-        return view('admin.patients.edit', compact('patient'));
+        $bloodTypes = BloodType::all();
+        return view('admin.patients.edit', compact('patient', 'bloodTypes'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Patient $patient)
+    public function update(PatientRequest $request, Patient $patient): RedirectResponse
     {
-        //
-    }
+        $validated = $request->validated();
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Patient $patient)
-    {
-        //
+        $patient->update($validated);
+
+        return redirect()->route('admin.patients.edit', $patient)->with('swal', [
+            'icon' => 'success',
+            'title' => 'Paciente actualizado',
+            'text' => 'El paciente ha sido actualizado exitosamente'
+        ]);
     }
 }
