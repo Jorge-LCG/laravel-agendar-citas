@@ -27,7 +27,8 @@ class DoctorRequest extends FormRequest
         return [
             'speciality_id' => ['nullable', 'exists:specialities,id'],
             'medical_license_number' => ['nullable', 'string', 'max:255', Rule::unique('doctors', 'medical_license_number')->ignore($doctorId)],
-            'biography' => ['nullable', 'string']
+            'biography' => ['nullable', 'string'],
+            'active' => ['required', 'boolean']
         ];
     }
 }

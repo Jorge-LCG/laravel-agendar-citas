@@ -75,6 +75,11 @@
                 <x-wire-textarea label="Bibliografía" name="biography" placeholder="Escribe una breve bibliografía doctor">
                     {{ old('biography', $doctor->biography) }}
                 </x-wire-textarea>
+
+                <x-wire-native-select label="Estado" name="active">
+                    <option value="1" @selected(old('active', $doctor->active) == 1)>Activo</option>
+                    <option value="0" @selected(old('active', $doctor->active) == 0)>Inactivo</option>
+                </x-wire-native-select>
             </div>
         </x-wire-card>
     </form>
