@@ -30,6 +30,8 @@
         
         {{-- Livewire / Styles --}}
         @livewireStyles
+
+        @stack('css')
     </head>
     <body class="font-sans antialiased bg-[#F1F5FF]">
 
@@ -91,5 +93,7 @@
                 });
             });
         </script>
+
+        @stack('js')
     </body>
 </html>

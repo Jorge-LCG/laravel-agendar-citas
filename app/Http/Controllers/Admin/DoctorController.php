@@ -35,4 +35,9 @@ class DoctorController extends Controller
             'text' => 'El doctor ha sido actualizado exitosamente'
         ]);
     }
+
+    public function schedules(Doctor $doctor): View 
+    {
+        return view('admin.doctors.schedules', compact('doctor'));
+    }
 }
