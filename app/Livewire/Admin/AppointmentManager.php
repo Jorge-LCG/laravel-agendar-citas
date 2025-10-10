@@ -58,8 +58,8 @@ class AppointmentManager extends Component
     #[Computed()]
     public function doctorName()
     {
-        return $this->selectedSchedules['doctor_id']
-            ? $this->availabilities[$this->selectedSchedules['doctor_id']]['doctor']->user->name
+        return $this->appointment['doctor_id']
+            ? $this->availabilities[$this->appointment['doctor_id']]['doctor']->user->name
             : 'Por definir';
     }
 
@@ -98,7 +98,14 @@ class AppointmentManager extends Component
             $this->appointment['start_time'] = $schedules->first();
             $this->appointment['end_time'] = Carbon::parse($schedules->last())->addMinutes(config('schedule.appointment_duration'))->format('H:i:s');
             $this->appointment['duration'] = $schedules->count() * config('schedule.appointment_duration');
+            
+            return;
         }
+
+        $this->appointment['doctor_id'] = "";
+        $this->appointment['start_time'] = "";
+        $this->appointment['end_time'] = "";
+        $this->appointment['duration'] = "";
     }
 
     public function render()

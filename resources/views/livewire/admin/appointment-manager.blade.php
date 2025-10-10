@@ -117,6 +117,55 @@
                                     {{ $this->doctorName }}
                                 </span>
                             </div>
+
+                            <div class="flex justify-between">
+                                <span class="text-slate-500">
+                                    Fecha:
+                                </span>
+
+                                <span class="text-slate-600 font-semibold">
+                                    {{ $appointment['date'] }}
+                                </span> 
+                            </div>
+                            
+                            <div class="flex justify-between">
+                                <span class="text-slate-500">
+                                    Horario:
+                                </span>
+
+                                <span class="text-slate-600 font-semibold">
+                                    @if ($appointment['duration'])
+                                        {{ $appointment['start_time'] }} - {{ $appointment['end_time'] }}
+                                    @else
+                                        <p>Por definir</p>
+                                    @endif
+                                </span> 
+                            </div>
+
+                            <div class="flex justify-between">
+                                <span class="text-slate-500">
+                                    Duración:
+                                </span>
+
+                                <span class="text-slate-600 font-semibold">
+                                    {{ $appointment['duration'] ?: 0 }} minutos
+                                </span> 
+                            </div>
+                        </div>
+
+                        <hr class="my-3" />
+
+                        <div class="space-y-6">
+                            <x-wire-select
+                                label="Paciente"
+                                placeholder="Seleccione un paciente"
+                                :async-data="route('api.patients.index')"
+                                wire:model='appointment.patient_id'
+                                option-label="name"
+                                option-value="id"
+                            />
+
+                            <x-wire-textarea wire:model="appointment.reason"/>
                         </div>
                     </x-wire-card>
                 </div>
