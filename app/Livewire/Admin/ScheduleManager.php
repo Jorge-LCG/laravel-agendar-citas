@@ -14,32 +14,30 @@ class ScheduleManager extends Component
     public Doctor $doctor;
     public $schedule = [];
 
-    public $days = [
-        1 => 'Lunes',
-        2 => 'Martes',
-        3 => 'Miércoles',
-        4 => 'Jueves',
-        5 => 'Viernes',
-        6 => 'Sábado',
-        0 => 'Domingo'
-    ];
-
-    public $apointment_duration = 15;
+    public $days = [];
+    public $appointment_duration;
+    public $start_time;
+    public $end_time;
     public $intervals;
 
     #[Computed()]
     public function hourBlocks()
     {
         return CarbonPeriod::create(
-            Carbon::createFromTimeString('08:00:00'),
+            Carbon::createFromTimeString($this->start_time),
             '1 hour',
-            Carbon::createFromTimeString('18:00:00')
+            Carbon::createFromTimeString($this->end_time)
         )->excludeEndDate();
     }
 
     public function mount()
     {
-        $this->intervals = 60 / $this->apointment_duration;
+        $this->days = config('schedule.days');
+        $this->appointment_duration = config('schedule.appointment_duration');
+        $this->start_time = config('schedule.start_time');
+        $this->end_time = config('schedule.end_time');
+
+        $this->intervals = 60 / $this->appointment_duration;
         $this->initializeSchedule();
     }
 
@@ -49,7 +47,7 @@ class ScheduleManager extends Component
         foreach ($this->hourBlocks as $hourBlock) {
             $period = CarbonPeriod::create(
                 $hourBlock->copy(),
-                $this->apointment_duration . 'minutes',
+                $this->appointment_duration . 'minutes',
                 $hourBlock->copy()->addHour()
             );
 
@@ -74,7 +72,6 @@ class ScheduleManager extends Component
                         'doctor_id' => $this->doctor->id,
                         'day_of_week' => $day_of_week,
                         'start_time' => $start_time,
-                        'end_time' => Carbon::createFromTimeString($start_time)->addMinutes($this->apointment_duration)->format('H:i:s')
                     ]);
                 }
             }

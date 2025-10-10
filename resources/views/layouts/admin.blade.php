@@ -71,7 +71,7 @@
 
         <script>
             Livewire.on('swal', (data) => {
-                Swal.free(data[0]);
+                Swal.fire(data[0]);
             });
         </script>
 
