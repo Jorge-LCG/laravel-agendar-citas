@@ -102,7 +102,23 @@
                 </div>
 
                 <div class="col-span-1">
-                    @json($selectedSchedules)
+                    <x-wire-card>
+                        <p class="text-xl font-semibold mb-4 text-slate-800">
+                            Resumen de la cita
+                        </p>
+
+                        <div class="space-y-3 text-sm">
+                            <div class="flex justify-between">
+                                <span class="text-slate-500">
+                                    Doctor:
+                                </span>
+
+                                <span class="text-slate-600 font-semibold">
+                                    {{ $this->doctorName }}
+                                </span>
+                            </div>
+                        </div>
+                    </x-wire-card>
                 </div>
             </div>
         @else

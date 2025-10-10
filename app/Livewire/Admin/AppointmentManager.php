@@ -55,6 +55,21 @@ class AppointmentManager extends Component
         )->excludeEndDate();
     }
 
+    #[Computed()]
+    public function doctorName()
+    {
+        return $this->selectedSchedules['doctor_id']
+            ? $this->availabilities[$this->selectedSchedules['doctor_id']]['doctor']->user->name
+            : 'Por definir';
+    }
+
+    public function updated($property, $value)
+    {
+        if ($property === 'selectedSchedules') {
+            $this->fillAppointment($value);
+        }
+    }
+
     public function searchAvailability(AppointmentService $service)
     {
         $this->validate([
@@ -71,6 +86,19 @@ class AppointmentManager extends Component
         $this->appointment['date'] = $this->search['date'];
 
         $this->availabilities = $service->searchAvailability(...$this->search);
+    }
+
+    public function fillAppointment($selectedSchedules) {
+        $schedules = collect($selectedSchedules['schedules'])
+            ->sort()
+            ->values();
+
+        if ($schedules->count()) {
+            $this->appointment['doctor_id'] = $selectedSchedules['doctor_id'];
+            $this->appointment['start_time'] = $schedules->first();
+            $this->appointment['end_time'] = Carbon::parse($schedules->last())->addMinutes(config('schedule.appointment_duration'))->format('H:i:s');
+            $this->appointment['duration'] = $schedules->count() * config('schedule.appointment_duration');
+        }
     }
 
     public function render()
