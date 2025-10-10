@@ -9,9 +9,10 @@
             'name' => 'Citas',
             'href' => route('admin.appointments.index')
         ],
-        {
+        [
             'name' => 'Nuevo'
-        }
+        ]
     ]
 ">
+    @livewire('admin.appointment-manager')
 </x-admin-layout>

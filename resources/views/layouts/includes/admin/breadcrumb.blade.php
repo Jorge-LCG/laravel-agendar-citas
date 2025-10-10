@@ -14,7 +14,7 @@
             @endforeach
         </ol>
         @if (count($breadcrumbs) > 1)
-            <h6 class="font-bold">
+            <h6 class="font-semibold">
                 {{ end($breadcrumbs)['name'] }}
             </h6>
         @endif

@@ -1,8 +1,8 @@
 @php
    $links = [
       [
-         'name' => 'Dashboard',
-         'icon' => 'fa-solid fa-gauge',
+         'name' => 'Productividad',
+         'icon' => 'fa-solid fa-chart-pie',
          'href' => route('admin.dashboard'),
          'active' => request()->routeIs('admin.dashboard')
       ],
@@ -29,7 +29,7 @@
       ],
       [
          'name' => 'Doctores',
-         'icon' => 'fa-solid fa-user-doctor',
+         'icon' => 'fa-solid fa-tooth',
          'href' => route('admin.doctors.index'),
          'active' => request()->routeIs('admin.doctors.*')
       ],
@@ -44,7 +44,7 @@
 
 <aside id="logo-sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0" aria-label="Sidebar">
    <div class="h-full px-3 pb-4 overflow-y-auto bg-white">
-      <ul class="space-y-2 font-medium">
+      <ul class="space-y-3 font-medium">
          @foreach ($links as $link)
             <li>
                @isset($link['header'])
@@ -54,8 +54,8 @@
                @else
                   @isset($link['submenu'])
                      <button type="button" class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100" aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
-                        <span class="w-6 h-6 inline-flex justify-center items-center text-gray-500">
-                           <i class="{{ $link['icon'] }}"></i>
+                        <span class="w-6 h-6 inline-flex justify-center items-center text-gray-600">
+                           <i class="{{ $link['icon'] }} text-lg"></i>
                         </span>
                         <span class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">{{ $link['name'] }}</span>
                         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
@@ -71,8 +71,8 @@
                      </ul>
                   @else
                      <a href="{{ $link['href'] }}" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group {{ $link['active'] ? 'bg-gray-100' : '' }}">
-                        <span class="w-6 h-6 inline-flex justify-center items-center text-gray-500">
-                           <i class="{{ $link['icon'] }}"></i>
+                        <span class="w-6 h-6 inline-flex justify-center items-center text-gray-600">
+                           <i class="{{ $link['icon'] }} text-lg"></i>
                         </span>
                         <span class="ms-3">{{ $link['name'] }}</span>
                      </a>
