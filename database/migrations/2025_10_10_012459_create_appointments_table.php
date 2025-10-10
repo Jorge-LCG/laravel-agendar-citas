@@ -20,7 +20,7 @@ return new class extends Migration
             $table->time('end_time');
             $table->integer('duration')->default(15);
             $table->text('reason')->nullable();
-            $table->tinyInteger('status')->dafault(1);
+            $table->tinyInteger('status')->default(1);
             $table->timestamps();
         });
     }

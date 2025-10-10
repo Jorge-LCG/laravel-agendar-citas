@@ -115,7 +115,7 @@ class AppointmentManager extends Component
             'appointment.patient_id' => ['required', 'exists:patients,id'],
             'appointment.doctor_id' => ['required', 'exists:doctors,id'],
             'appointment.date' => ['required', 'date', 'after_or_equal:today'],
-            'appointment.start_time' => ['required', 'date', 'date_format:H:i:s'],
+            'appointment.start_time' => ['required', 'date_format:H:i:s'],
             'appointment.end_time' => ['required', 'date_format:H:i:s', 'after:appointment.start_time'],
             'appointment.reason' => ['nullable', 'string', 'max:255'],
         ]);
