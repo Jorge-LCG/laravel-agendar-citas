@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin;
 
+use App\Models\Appointment;
 use App\Models\Speciality;
 use App\Services\AppointmentService;
 use Carbon\Carbon;
@@ -106,6 +107,26 @@ class AppointmentManager extends Component
         $this->appointment['start_time'] = "";
         $this->appointment['end_time'] = "";
         $this->appointment['duration'] = "";
+    }
+
+    public function save()
+    {
+        $this->validate([
+            'appointment.patient_id' => ['required', 'exists:patients,id'],
+            'appointment.doctor_id' => ['required', 'exists:doctors,id'],
+            'appointment.date' => ['required', 'date', 'after_or_equal:today'],
+            'appointment.start_time' => ['required', 'date', 'date_format:H:i:s'],
+            'appointment.end_time' => ['required', 'date_format:H:i:s', 'after:appointment.start_time'],
+            'appointment.reason' => ['nullable', 'string', 'max:255'],
+        ]);
+
+        Appointment::create($this->appointment);
+
+        return redirect()->route('admin.appointments.index')->with('swal', [
+            'icon' => 'success',
+            'title' => 'Cita creada correctamente',
+            'text' => 'La cita ha sido registrada exitosamente'
+        ]);
     }
 
     public function render()
