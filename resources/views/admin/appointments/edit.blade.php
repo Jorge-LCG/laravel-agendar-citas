@@ -9,9 +9,9 @@
             'name' => 'Citas',
             'href' => route('admin.appointments.index')
         ],
-        {
+        [
             'name' => 'Editar'
-        }
+        ]
     ]
 ">
 </x-admin-layout>
