@@ -13,6 +13,8 @@ use Livewire\Component;
 
 class AppointmentManager extends Component
 {
+    public ?Appointment $appointmentEdit = null;
+
     public $search = [
         'date' => '',
         'hour' => '',
@@ -44,7 +46,11 @@ class AppointmentManager extends Component
         $this->search['date'] = now()->hour >= 12
             ? now()->addDay()->format('Y-m-d')
             : now()->format('Y-m-d');
-    }
+        
+        if ($this->appointmentEdit) {
+            $this->appointment['patient_id'] = $this->appointmentEdit->patient_id;
+        }
+     }
 
     #[Computed()]
     public function hourBlocks()
@@ -119,6 +125,20 @@ class AppointmentManager extends Component
             'appointment.end_time' => ['required', 'date_format:H:i:s', 'after:appointment.start_time'],
             'appointment.reason' => ['nullable', 'string', 'max:255'],
         ]);
+
+        if ($this->appointmentEdit) {
+            $this->appointmentEdit->update($this->appointment);
+
+            $this->dispatch('swal', [
+                'icon' => 'success',
+                'title' => 'Cita actualizada correctamente',
+                'text' => 'La cita ha sido actualizada exitosamente'
+            ]);
+
+            $this->searchAvailability(new AppointmentService);
+
+            return;
+        }
 
         Appointment::create($this->appointment);
 

@@ -86,8 +86,9 @@
                                 <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
                                     @foreach ($availability['schedules'] as $schedule)
                                         <li>
-                                            <x-wire-button blue
+                                            <x-wire-button
                                                 :disabled="$schedule['disabled']"
+                                                :color="$schedule['disabled'] ? 'secondary' : 'blue'"
                                                 x-on:click="selectSchedule({{ $availability['doctor']->id }}, '{{ $schedule['start_time'] }}')"
                                                 x-bind:class="selectedSchedules.doctor_id === {{ $availability['doctor']->id }} && selectedSchedules.schedules.includes('{{ $schedule['start_time'] }}') ? 'bg-opacity-50' : ''" 
                                                 class="w-full"
@@ -162,6 +163,7 @@
                                 placeholder="Seleccione un paciente"
                                 :async-data="route('api.patients.index')"
                                 wire:model='appointment.patient_id'
+                                :disabled="isset($appointmentEdit)"
                                 option-label="name"
                                 option-value="id"
                             />
